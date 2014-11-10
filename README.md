@@ -1,7 +1,7 @@
 travis-solr.sh
 ==============
 
-Get a Solr instance running with a one-liner and use it in your tests.
+Get a Solr instance running with a one-liner and use it in your Travis Ci tests.
 
 
 Usage
@@ -9,7 +9,7 @@ Usage
 
 ::
 
-  curl -sSL https://raw.githubusercontent.com/moliware/travis-solr/master/travis-solr.sh | SOLR_VERSION=3.6.1 SOLR_CONFS="schema.xml solrconfig.xml" SOLR_DOCS=custom_docs.json bash
+	curl -sSL https://raw.githubusercontent.com/zero2one/travis-solr/master/travis-solr.sh | SOLR_VERSION=4.10.2 SOLR_CONFS="schema.xml solrconfig.xml" SOLR_DOCS=custom_docs.json bash
 
 SOLR_VERSION:
 .............
@@ -37,6 +37,10 @@ You have to specify one of these versions:
 - 4.8.1
 - 4.9.0
 - 4.9.1
+- 4.10.0
+- 4.10.1
+- 4.10.2
+
 
 SOLR_CONFS:
 ...........
@@ -67,4 +71,12 @@ Edit your .travis.yml and use travis-solr as a *before_script* script.
 For example if you want to use solr 3.6.1 with the default settings you can add this
 line to your .travis.yml: ::
 
-  before_script: curl -sSL https://raw.githubusercontent.com/moliware/travis-solr/master/travis-solr.sh | SOLR_VERSION=3.6.1 bash
+	before_script: curl -sSL https://raw.githubusercontent.com/zero2one/travis-solr/master/travis-solr.sh | bash    
+
+This will install the latest version of Solr.
+
+It is possible to specify the specific Solr version you want to use in the script:
+
+	before_script: curl -sSL https://raw.githubusercontent.com/zero2one/travis-solr/master/travis-solr.sh | SOLR_VERSION=4.10.2 bash
+
+

@@ -195,16 +195,6 @@ add_core() {
     dir_conf=$2
     solr_core=$3
     solr_confs=$4
-
-    echo "---------------------------------------------------------------------"
-    echo "ADD CORE"
-    echo "---------------------------------------------------------------------"
-    echo " Dir name  : $dir_name"
-    echo " Dir conf  : $dir_conf"
-    echo " Solr core : $solr_core"
-    echo " Solr conf : $solr_confs"
-    echo "---------------------------------------------------------------------"
-
     # prepare our folders
     [[ -d "${dir_name}/example/multicore/${solr_core}" ]] || mkdir $dir_name/example/multicore/$solr_core
     [[ -d "${dir_name}/example/multicore/${solr_core}/conf" ]] || mkdir $dir_name/example/multicore/$solr_core/conf

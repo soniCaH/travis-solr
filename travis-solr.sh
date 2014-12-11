@@ -41,8 +41,7 @@ run() {
     # go to the solr folder
     cd $1/example
 
-    if [ $DEBUG ]
-    then
+    if [[ $DEBUG -eq 1 ]]; then
         echo " > Starting in Debug mode (output on screen)"
         java -Djetty.port=$solr_port -Dsolr.solr.home=multicore -jar start.jar &
     else
@@ -184,8 +183,7 @@ download_and_run() {
     add_core $dir_name $dir_conf $SOLR_CORE $SOLR_CONFS
     run $dir_name $SOLR_PORT $SOLR_CORE
 
-    if [ -z "${SOLR_DOCS}" ]
-    then
+    if [ -z "${SOLR_DOCS}" ]; then
         echo "$solr_docs not defined, skipping initial indexing"
     else
         post_documents $dir_name $SOLR_DOCS $SOLR_CORE $SOLR_PORT
@@ -202,7 +200,7 @@ add_core() {
     [[ -d "${dir_name}/example/multicore/${solr_core}/conf" ]] || mkdir $dir_name/example/multicore/$solr_core/conf
 
     # copies custom configurations
-    if [ -d "${solr_confs}" ] ; then
+    if [ -d "${solr_confs}" ]; then
       cp -R $solr_confs/* $dir_name/example/multicore/$solr_core/conf/
     else
       for file in $solr_confs
@@ -224,8 +222,7 @@ post_documents() {
     solr_core=$3
     solr_port=$4
       # Post documents
-    if [ -z "${solr_docs}" ]
-    then
+    if [ -z "${solr_docs}" ]; then
         echo "$solr_docs not defined, skipping initial indexing"
     else
         echo "Indexing $solr_docs"

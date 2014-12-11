@@ -42,11 +42,11 @@ run() {
     cd $1/example
 
     if [[ $DEBUG -eq 1 ]]; then
-        echo " > Starting in Debug mode (output on screen)"
+        echo " > Starting in Debug mode"
         java -Djetty.port=$solr_port -Dsolr.solr.home=multicore -jar start.jar &
     else
-        echo " > Starting in background (no output)"
-        nohup java -Djetty.port=$solr_port -Dsolr.solr.home=multicore -jar start.jar > /dev/null 2>&1
+        echo " > Starting in Normal mode (surpress output)"
+        java -Djetty.port=$solr_port -Dsolr.solr.home=multicore -jar start.jar > /dev/null 2>&1 &
     fi
     wait_for_solr
     cd ../../

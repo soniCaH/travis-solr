@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 SOLR_PORT=${SOLR_PORT:-8983}
-SOLR_VERSION=${SOLR_VERSION:-4.10.2}
+SOLR_VERSION=${SOLR_VERSION:-5.5.0}
 DEBUG=${DEBUG:-0}
 SOLR_CORE=${SOLR_CORE:-core0}
 
@@ -57,26 +57,6 @@ run() {
 
 download_and_run() {
     case $1 in
-        3.5.0)
-            url="http://archive.apache.org/dist/lucene/solr/3.5.0/apache-solr-3.5.0.tgz"
-            dir_name="apache-solr-3.5.0"
-            dir_conf="conf/"
-            ;;
-        3.6.0)
-            url="http://archive.apache.org/dist/lucene/solr/3.6.0/apache-solr-3.6.0.tgz"
-            dir_name="apache-solr-3.6.0"
-            dir_conf="conf/"
-            ;;
-        3.6.1)
-            url="http://archive.apache.org/dist/lucene/solr/3.6.1/apache-solr-3.6.1.tgz"
-            dir_name="apache-solr-3.6.1"
-            dir_conf="conf/"
-            ;;
-        3.6.2)
-            url="http://archive.apache.org/dist/lucene/solr/3.6.2/apache-solr-3.6.2.tgz"
-            dir_name="apache-solr-3.6.2"
-            dir_conf="conf/"
-            ;;
         4.0.0)
             url="http://archive.apache.org/dist/lucene/solr/4.0.0/apache-solr-4.0.0.tgz"
             dir_name="apache-solr-4.0.0"
@@ -177,6 +157,66 @@ download_and_run() {
             dir_name="solr-4.10.2"
             dir_conf="collection1/conf/"
             ;;
+        4.10.3)
+            url="http://archive.apache.org/dist/lucene/solr/4.10.3/solr-4.10.3.tgz"
+            dir_name="solr-4.10.3"
+            dir_conf="collection1/conf/"
+            ;;
+        4.10.4)
+            url="http://archive.apache.org/dist/lucene/solr/4.10.4/solr-4.10.4.tgz"
+            dir_name="solr-4.10.4"
+            dir_conf="collection1/conf/"
+            ;;
+        5.0.0)
+            url="http://archive.apache.org/dist/lucene/solr/5.0.0/solr-5.0.0.tgz"
+            dir_name="solr-5.0.0"
+            dir_conf="collection1/conf/"
+            ;;
+        5.1.0)
+            url="http://archive.apache.org/dist/lucene/solr/5.1.0/solr-5.1.0.tgz"
+            dir_name="solr-5.1.0"
+            dir_conf="collection1/conf/"
+            ;;
+        5.2.0)
+            url="http://archive.apache.org/dist/lucene/solr/5.2.0/solr-5.2.0.tgz"
+            dir_name="solr-5.2.0"
+            dir_conf="collection1/conf/"
+            ;;
+        5.2.1)
+            url="http://archive.apache.org/dist/lucene/solr/5.2.1/solr-5.2.1.tgz"
+            dir_name="solr-5.2.1"
+            dir_conf="collection1/conf/"
+            ;;
+        5.3.0)
+            url="http://archive.apache.org/dist/lucene/solr/5.3.0/solr-5.3.0.tgz"
+            dir_name="solr-5.3.0"
+            dir_conf="collection1/conf/"
+            ;;
+        5.3.1)
+            url="http://archive.apache.org/dist/lucene/solr/5.3.1/solr-5.3.1.tgz"
+            dir_name="solr-5.3.1"
+            dir_conf="collection1/conf/"
+            ;;
+        5.3.2)
+            url="http://archive.apache.org/dist/lucene/solr/5.3.2/solr-5.3.2.tgz"
+            dir_name="solr-5.3.2"
+            dir_conf="collection1/conf/"
+            ;;
+        5.4.0)
+            url="http://archive.apache.org/dist/lucene/solr/5.4.0/solr-5.4.0.tgz"
+            dir_name="solr-5.4.0"
+            dir_conf="collection1/conf/"
+            ;;
+        5.4.1)
+            url="http://archive.apache.org/dist/lucene/solr/5.4.1/solr-5.4.1.tgz"
+            dir_name="solr-5.4.1"
+            dir_conf="collection1/conf/"
+            ;;
+        5.5.0)
+            url="http://archive.apache.org/dist/lucene/solr/5.5.0/solr-5.5.0.tgz"
+            dir_name="solr-5.5.0"
+            dir_conf="collection1/conf/"
+            ;;
     esac
 
     download $url $dir_name
@@ -232,7 +272,7 @@ post_documents() {
 
 check_version() {
     case $1 in
-        3.5.0|3.6.0|3.6.1|3.6.2|4.0.0|4.1.0|4.2.0|4.2.1|4.3.1|4.4.0|4.5.0|4.5.1|4.6.0|4.6.1|4.7.0|4.7.1|4.7.2|4.8.0|4.8.1|4.9.0|4.9.1|4.10.0|4.10.1|4.10.2);;
+        4.0.0|4.1.0|4.2.0|4.2.1|4.3.1|4.4.0|4.5.0|4.5.1|4.6.0|4.6.1|4.7.0|4.7.1|4.7.2|4.8.0|4.8.1|4.9.0|4.9.1|4.10.0|4.10.1|4.10.2|4.10.3|4.10.4|5.0.0|5.1.0|5.2.0|5.2.1|5.3.0|5.3.1|5.3.2|5.4.0|5.4.1|5.5.0);;
         *)
             echo "Sorry, $1 is not supported or not valid version."
             exit 1

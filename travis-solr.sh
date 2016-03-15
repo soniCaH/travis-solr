@@ -170,48 +170,58 @@ download_and_run() {
         5.0.0)
             url="http://archive.apache.org/dist/lucene/solr/5.0.0/solr-5.0.0.tgz"
             dir_name="solr-5.0.0"
+            solr5=true
             ;;
         5.1.0)
             url="http://archive.apache.org/dist/lucene/solr/5.1.0/solr-5.1.0.tgz"
             dir_name="solr-5.1.0"
+            solr5=true
             ;;
         5.2.0)
             url="http://archive.apache.org/dist/lucene/solr/5.2.0/solr-5.2.0.tgz"
             dir_name="solr-5.2.0"
+            solr5=true
             ;;
         5.2.1)
             url="http://archive.apache.org/dist/lucene/solr/5.2.1/solr-5.2.1.tgz"
             dir_name="solr-5.2.1"
+            solr5=true
             ;;
         5.3.0)
             url="http://archive.apache.org/dist/lucene/solr/5.3.0/solr-5.3.0.tgz"
             dir_name="solr-5.3.0"
+            solr5=true
             ;;
         5.3.1)
             url="http://archive.apache.org/dist/lucene/solr/5.3.1/solr-5.3.1.tgz"
             dir_name="solr-5.3.1"
+            solr5=true
             ;;
         5.3.2)
             url="http://archive.apache.org/dist/lucene/solr/5.3.2/solr-5.3.2.tgz"
             dir_name="solr-5.3.2"
+            solr5=true
             ;;
         5.4.0)
             url="http://archive.apache.org/dist/lucene/solr/5.4.0/solr-5.4.0.tgz"
             dir_name="solr-5.4.0"
+            solr5=true
             ;;
         5.4.1)
             url="http://archive.apache.org/dist/lucene/solr/5.4.1/solr-5.4.1.tgz"
             dir_name="solr-5.4.1"
+            solr5=true
             ;;
         5.5.0)
             url="http://archive.apache.org/dist/lucene/solr/5.5.0/solr-5.5.0.tgz"
             dir_name="solr-5.5.0"
+            solr5=true
             ;;
     esac
 
     download $url $dir_name
     
-    if [ $1 == *"solr-5."* ]; then
+    if $solr5; then
         echo "Solr 5 found, running specific conf"
         solr5_start $dir_name $SOLR_CORE $SOLR_CONFS
     else

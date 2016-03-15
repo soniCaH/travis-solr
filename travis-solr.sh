@@ -223,7 +223,7 @@ download_and_run() {
     
     if $solr5; then
         echo "Solr 5 found, running specific conf"
-        solr5_start $dir_name $SOLR_CORE $SOLR_CONFS
+        solr5_start $dir_name $SOLR_PORT $SOLR_CORE $SOLR_CONFS
     else
         add_core $dir_name $dir_conf $SOLR_CORE $SOLR_CONFS
         run $dir_name $SOLR_PORT $SOLR_CORE
@@ -264,8 +264,9 @@ add_core() {
 
 solr5_start() {
     dir_name=$1
-    solr_core=$2
-    solr_confs=$3
+    solr_port=$2
+    solr_core=$3
+    solr_confs=$4
     
     # Run solr
     echo "Running with folder $dir_name"

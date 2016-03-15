@@ -170,58 +170,54 @@ download_and_run() {
         5.0.0)
             url="http://archive.apache.org/dist/lucene/solr/5.0.0/solr-5.0.0.tgz"
             dir_name="solr-5.0.0"
-            dir_conf="collection1/conf/"
             ;;
         5.1.0)
             url="http://archive.apache.org/dist/lucene/solr/5.1.0/solr-5.1.0.tgz"
             dir_name="solr-5.1.0"
-            dir_conf="collection1/conf/"
             ;;
         5.2.0)
             url="http://archive.apache.org/dist/lucene/solr/5.2.0/solr-5.2.0.tgz"
             dir_name="solr-5.2.0"
-            dir_conf="collection1/conf/"
             ;;
         5.2.1)
             url="http://archive.apache.org/dist/lucene/solr/5.2.1/solr-5.2.1.tgz"
             dir_name="solr-5.2.1"
-            dir_conf="collection1/conf/"
             ;;
         5.3.0)
             url="http://archive.apache.org/dist/lucene/solr/5.3.0/solr-5.3.0.tgz"
             dir_name="solr-5.3.0"
-            dir_conf="collection1/conf/"
             ;;
         5.3.1)
             url="http://archive.apache.org/dist/lucene/solr/5.3.1/solr-5.3.1.tgz"
             dir_name="solr-5.3.1"
-            dir_conf="collection1/conf/"
             ;;
         5.3.2)
             url="http://archive.apache.org/dist/lucene/solr/5.3.2/solr-5.3.2.tgz"
             dir_name="solr-5.3.2"
-            dir_conf="collection1/conf/"
             ;;
         5.4.0)
             url="http://archive.apache.org/dist/lucene/solr/5.4.0/solr-5.4.0.tgz"
             dir_name="solr-5.4.0"
-            dir_conf="collection1/conf/"
             ;;
         5.4.1)
             url="http://archive.apache.org/dist/lucene/solr/5.4.1/solr-5.4.1.tgz"
             dir_name="solr-5.4.1"
-            dir_conf="collection1/conf/"
             ;;
         5.5.0)
             url="http://archive.apache.org/dist/lucene/solr/5.5.0/solr-5.5.0.tgz"
             dir_name="solr-5.5.0"
-            dir_conf="collection1/conf/"
             ;;
     esac
 
     download $url $dir_name
-    add_core $dir_name $dir_conf $SOLR_CORE $SOLR_CONFS
-    run $dir_name $SOLR_PORT $SOLR_CORE
+    
+    if [ $1 == *"solr-5."* ]; then
+        echo "Solr 5 found, running specific conf"
+        solr5_start $dir_name $SOLR_CORE $SOLR_CONFS
+    else
+        add_core $dir_name $dir_conf $SOLR_CORE $SOLR_CONFS
+        run $dir_name $SOLR_PORT $SOLR_CORE
+    fi
 
     if [ -z "${SOLR_DOCS}" ]; then
         echo "$solr_docs not defined, skipping initial indexing"
@@ -254,6 +250,33 @@ add_core() {
         fi
       done
     fi
+}
+
+solr5_start() {
+    dir_name=$1
+    solr_core=$2
+    solr_confs=$3
+    
+    # Run solr
+    echo "Running with folder $dir_name"
+    echo "Starting solr on port ${solr_port}..."
+    
+    cd $dir_name
+
+    if [[ $DEBUG -eq 1 ]]; then
+        echo " > Starting in Debug mode"
+        bin/solr start -p $solr_port &
+    else
+        echo " > Starting in Normal mode (surpress output)"
+        bin/solr start -p $solr_port & > /dev/null 2>&1 &
+    fi
+    
+    wait_for_solr
+    
+    bin/solr create_core -p $solr_port -d $solr_confs -c $solr_core
+    
+    cd ../../
+    echo "Started"    
 }
 
 post_documents() {
